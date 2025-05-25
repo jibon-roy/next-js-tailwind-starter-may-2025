@@ -65,10 +65,10 @@ export const Drawer = ({
       >
         <div className="flex flex-col z-50 h-full">
           {/* Close button */}
-          <div className="flex justify-end px-4">
+          <div className="flex py-2 justify-end px-4">
             <button
               onClick={onClose}
-              className={`p-2 rounded-md ${textColor} focus:outline-none`}
+              className={`p-1 rounded-md border ${textColor} focus:outline-none`}
             >
               <svg
                 className="h-6 w-6"

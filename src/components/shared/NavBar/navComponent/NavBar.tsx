@@ -1,8 +1,7 @@
 "use client";
-import { MyButton } from "@/components/ui/buttons/my-button";
 import React from "react";
 import { Navbar } from "../navbar";
-import NavLogo from "@/assets/icons/logo.png";
+import NavLogo from "@/assets/images/Human.png";
 
 const NavBar = () => {
   const navItems = [
@@ -30,13 +29,9 @@ const NavBar = () => {
       label: "Login",
       onClick: () => console.log("Login clicked"),
       component: (
-        <MyButton
-          variant="outline"
-          size="md"
-          className="rounded-md bg-white max-lg:w-full"
-        >
+        <button className="rounded-md bg-white border border-gray-300 px-5 py-2 max-lg:w-full">
           Login
-        </MyButton>
+        </button>
       ),
     },
   ];
@@ -48,12 +43,12 @@ const NavBar = () => {
   };
 
   return (
-    <div className="mb-16">
+    <div className="mb-16 lg:mb-20">
       <Navbar
-        className="max-w-[1920px] mx-auto px-[1.5%]"
+        className="max-w-[1920px] mx-auto sm:px-[1.5%]"
         position="fixed"
         shadow="shadow-none"
-        backgroundColor="bg-secondary py-4"
+        backgroundColor="bg-gray-200 lg:py-4"
         logo={NavLogo.src}
         activeTextColor="text-accent hover:!text-accent-light font-medium"
         textColor="text-nav-text font-medium"

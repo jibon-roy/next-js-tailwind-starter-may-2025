@@ -297,9 +297,9 @@ export const Navbar = ({
                 : mobileBreakpoint === "2xl"
                 ? "2xl:hidden"
                 : ""
-            } flex`}
+            } flex gap-4`}
           >
-            <div className="hidden md:flex items-center space-x-4">
+            <div className="hidden md:flex items-center justify-end space-x-4">
               {buttons.map((button, index) =>
                 button.component ? (
                   <div key={index} onClick={() => handleButtonClick(index)}>
@@ -321,7 +321,7 @@ export const Navbar = ({
             </div>
             <button
               onClick={() => setIsOpen(true)}
-              className={`p-2 rounded-md ${hamburgerColor} focus:outline-none`}
+              className={`p-1 border rounded-sm h-fit my-auto aspect-square ${hamburgerColor} focus:outline-none`}
             >
               <svg
                 className="h-6 w-6"
