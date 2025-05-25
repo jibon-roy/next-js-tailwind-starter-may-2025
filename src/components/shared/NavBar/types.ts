@@ -21,6 +21,7 @@ export interface NavButton {
 
 export interface NavbarProps {
   className?: string;
+  navDivider?: boolean;
   logo?: string | ReactNode;
   navItems?: NavItem[];
   buttons?: NavButton[];

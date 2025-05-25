@@ -9,6 +9,7 @@ import Image from "next/image";
 
 export const Navbar = ({
   logo,
+  navDivider = false,
   navItems = [],
   buttons = [],
   mobileBreakpoint = "lg",
@@ -166,8 +167,8 @@ export const Navbar = ({
                 .filter(shouldShowRoute)
                 .map((item: NavItem, index: number) => (
                   <li key={index} className={`relative px-4  `}>
-                    {index < navItems.length - 1 && (
-                      <div className="absolute right-0 top-1/2 transform -translate-y-1/2 h-[10px] border-r-2 border-gray-300" />
+                    {navDivider && index < navItems.length - 1 && (
+                      <div className="absolute right-0 top-1/2 transform -translate-y-1/2 h-[10px]  border-gray-300" />
                     )}
                     {item.dropdown ? (
                       <div>
