@@ -15,42 +15,39 @@ export default function NotificationDetails() {
     <div>
       <button
         type="button"
-        className="p-1.5 sm:p-2 hover:bg-gray-200 border-2 border-gray-200 dark:hover:bg-[#1F1F23] rounded-full transition-colors"
+        className="p-1.5 sm:p-2 hover:bg-gray-200 border-2 border-gray-200 cursor-pointer rounded-full transition-colors"
         onClick={toggleDrawer}
       >
-        <Bell className="h-4 w-4 sm:h-5 sm:w-5 text-gray-600 dark:text-gray-400" />
+        <Bell className="h-4 w-4 sm:h-5 sm:w-5 text-gray-600 " />
       </button>
 
       {/* Drawer/Sidebar */}
       <div
-        className={`fixed top-0 right-0 w-80 h-full bg-white dark:bg-[#0F0F12] shadow-xl transition-transform duration-300 transform ${
+        className={`fixed top-0 right-0 w-80 h-full bg-white  shadow-xl transition-transform duration-300 transform ${
           isOpen ? "translate-x-0" : "translate-x-full"
         } z-[100000]`}
       >
-        <div className="flex justify-between items-center p-4 border-b border-gray-200 dark:border-[#1F1F23]">
+        <div className="flex justify-between items-center p-4 border-b border-gray-200 ">
           <h3 className="text-lg font-semibold">Notifications</h3>
-          <button
-            onClick={toggleDrawer}
-            className="text-gray-600 dark:text-gray-300"
-          >
+          <button onClick={toggleDrawer} className="text-gray-600 ">
             <X />
           </button>
         </div>
         <div className="p-4">
           {/* Notifications Content */}
           <ul>
-            <li className="p-2 hover:bg-gray-100 dark:hover:bg-[#1F1F23] rounded">
-              <Link href="#" className="text-gray-700 dark:text-gray-300">
+            <li className="p-2 hover:bg-gray-100  rounded">
+              <Link href="#" className="text-gray-700 ">
                 Notification #1
               </Link>
             </li>
-            <li className="p-2 hover:bg-gray-100 dark:hover:bg-[#1F1F23] rounded">
-              <Link href="#" className="text-gray-700 dark:text-gray-300">
+            <li className="p-2 hover:bg-gray-100  rounded">
+              <Link href="#" className="text-gray-700 ">
                 Notification #2
               </Link>
             </li>
-            <li className="p-2 hover:bg-gray-100 dark:hover:bg-[#1F1F23] rounded">
-              <Link href="#" className="text-gray-700 dark:text-gray-300">
+            <li className="p-2 hover:bg-gray-100  rounded">
+              <Link href="#" className="text-gray-700 ">
                 Notification #3
               </Link>
             </li>

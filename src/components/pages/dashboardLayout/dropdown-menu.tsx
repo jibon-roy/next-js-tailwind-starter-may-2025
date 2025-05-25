@@ -40,7 +40,7 @@ export const DropdownMenuContent = ({
         top: "100%", // Position the dropdown below the trigger
       }}
     >
-      <div className="relative p-2 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg shadow-lg">
+      <div className="relative p-2 bg-white  border border-zinc-200  rounded-lg shadow-lg">
         {children}
       </div>
     </div>
