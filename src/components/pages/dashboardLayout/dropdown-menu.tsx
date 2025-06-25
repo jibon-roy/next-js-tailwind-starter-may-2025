@@ -1,15 +1,18 @@
+// components/Dropdown.tsx
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Profile01 from "./profile-01";
 
 interface DropdownMenuProps {
   children: React.ReactNode;
 }
 
-interface DropdownMenuContentProps extends DropdownMenuProps {
+interface DropdownMenuContentProps {
+  children: React.ReactNode;
   align?: string;
   sideOffset?: number;
   className?: string;
+  onClose?: () => void;
 }
 
 interface DropdownMenuTriggerProps {
@@ -29,18 +32,35 @@ export const DropdownMenuContent = ({
   align = "start",
   sideOffset = 0,
   className = "",
+  onClose,
 }: DropdownMenuContentProps) => {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (ref.current && !ref.current.contains(event.target as Node)) {
+        onClose?.(); // ✅ Close when clicked outside
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [onClose]);
+
   return (
     <div
+      ref={ref}
       className={`absolute z-[10000] ${
         align === "end" ? "right-0" : "left-0"
       } ${className}`}
       style={{
         marginTop: sideOffset,
-        top: "100%", // Position the dropdown below the trigger
+        top: "100%",
       }}
     >
-      <div className="relative p-2 bg-white  border border-zinc-200  rounded-lg shadow-lg">
+      <div className="relative p-2 bg-white border border-zinc-200 rounded-lg shadow-lg">
         {children}
       </div>
     </div>
@@ -52,10 +72,11 @@ export const DropdownMenu = ({ children }: DropdownMenuProps) => {
 
   return (
     <div className="relative">
-      <div onClick={() => setIsOpen(!isOpen)}>{children}</div>
+      <div onMouseDown={() => setIsOpen(!isOpen)}>{children}</div>
       {isOpen && (
         <DropdownMenuContent
           align="end"
+          onClose={() => setIsOpen(false)} // ✅ Better than onBlur
           sideOffset={8}
           className="w-[280px] sm:w-80"
         >
