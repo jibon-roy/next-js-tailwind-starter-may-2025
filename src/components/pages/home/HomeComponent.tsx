@@ -1,16 +1,19 @@
 import React from "react";
 import Banner from "./Banner/Banner";
-import LoginWithGoogle from "@/components/LoginWithGoogle";
-import Example from "./Example/Example";
-import { Container } from "@/components/ui-library/container";
+import BenefitsComponent from "./Benefits/BenefitsComponent";
+import HowItsWorks from "./HowItsWorks/HowItsWorks";
+import Pricing from "./Pricing/Pricing";
+
+// import { Container } from "@/components/ui-library/container";
 
 const HomeComponent = () => {
   return (
-    <Container >
+    <div className="">
       <Banner />
-      <Example />
-      <LoginWithGoogle />
-    </Container> 
+      <BenefitsComponent/>
+      <HowItsWorks/>
+      <Pricing/>
+    </div>
   );
 };
 

@@ -1,69 +1,156 @@
 "use client";
-import React from "react";
-import { Navbar } from "../navbar";
-import NavLogo from "@/assets/images/Human.png";
 
-const NavBar = () => {
-  const navItems = [
-    {
-      label: "Home",
-      path: "/",
-    },
-    {
-      label: "About Us",
-      path: "/about-us",
-    },
-    {
-      label: "Blog",
-      path: "/blog",
-    },
-    {
-      label: "Contact",
-      path: "/contact",
-    },
-  ];
+import { useState } from "react";
+import { usePathname } from "next/navigation";
+import Link from "next/link";
+import Image from "next/image";
+import logo from "@/assets/images/logo.png";
 
-  // Example buttons with custom components
-  const buttons = [
-    {
-      label: "Login",
-      onClick: () => console.log("Login clicked"),
-      component: (
-        <button className="rounded-md bg-white border border-gray-300 px-5 py-2 max-lg:w-full">
-          Login
-        </button>
-      ),
-    },
-  ];
+export default function Navbar() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const pathname = usePathname();
 
-  // Example conditional routes
-  const conditionalRoutes = {
-    "/pricing": true, // Show pricing page
-    "/admin": false, // Hide admin page
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
   };
 
-  return (
-    <div className="mb-16 lg:mb-20">
-      <Navbar
-        className="max-w-[1920px] mx-auto sm:px-[1.5%]"
-        position="fixed"
-        shadow="shadow-none"
-        backgroundColor="bg-gray-200 lg:py-4"
-        logo={NavLogo.src}
-        activeTextColor="text-accent hover:!text-accent-light font-medium"
-        textColor="text-nav-text font-medium"
-        hoverTextColor="hover:text-nav-text-light"
-        navItems={navItems}
-        buttons={buttons}
-        hideOnScroll
-        conditionalRoutes={conditionalRoutes}
-        onNavItemClick={(item) => console.log("Nav item clicked:", item.label)}
-        onButtonClick={(index, button) =>
-          console.log(`Button ${index} clicked:`, button.label)
-        }
-      />
-    </div>
-  );
-};
+  const isActive = (path: string) => {
+    return pathname === path;
+  };
 
-export default NavBar;
+  const navItems = [
+    { name: "Home", path: "/" },
+    { name: "How it work", path: "/how-it-works" },
+    { name: "Pricing", path: "/pricing" },
+    { name: "FAQ's", path: "/faq" },
+    { name: "Contact", path: "/contact" },
+  ];
+
+  return (
+    <nav className="bg-white border-b border-gray-100 sticky top-0 z-50 shadow-sm">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center h-24">
+          {/* Logo */}
+          <div className="flex-shrink-0">
+            <Link href="/">
+              <Image
+                src={logo}
+                alt="Logo"
+                width={82}
+                height={40}
+                className="w-[82px] h-[40px]"
+              />
+            </Link>
+          </div>
+
+          {/* Desktop Navigation Links */}
+          <div className="hidden lg:block">
+            <div className="ml-10 flex items-baseline space-x-8">
+              {navItems.map((item) => (
+                <Link
+                  key={item.path}
+                  href={item.path}
+                  className={`px-3 py-2  transition-colors duration-200 ${
+                    isActive(item.path)
+                      ? "text-primary text-[16px] font-medium"
+                      : "text-text-primary hover:text-gray-900 text-[16px] font-normal"
+                  }`}
+                >
+                  {isActive(item.path) ? "• " : ""}
+                  {item.name}
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          {/* Download Button */}
+          <div className="hidden lg:block">
+            <button
+              className="bg-black-primary text-white px-[26px] py-4 rounded-[12px] text-sm font-medium hover:bg-gray-800 transition-colors duration-200 cursor-pointer"
+              onClick={() => {
+                alert("Redirecting to app store...");
+              }}
+            >
+              Download our app
+            </button>
+          </div>
+
+          {/* Mobile menu button */}
+          <div className="lg:hidden">
+            <button
+              onClick={toggleMenu}
+              className="inline-flex items-center justify-center p-2 rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary"
+            >
+              <span className="sr-only">Open main menu</span>
+              {!isMenuOpen ? (
+                <svg
+                  className="block h-6 w-6"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4 6h16M4 12h16M4 18h16"
+                  />
+                </svg>
+              ) : (
+                <svg
+                  className="block h-6 w-6"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              )}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Mobile menu */}
+      {isMenuOpen && (
+        <div className="lg:hidden">
+          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t border-gray-100">
+            {navItems.map((item) => (
+              <Link
+                key={item.path}
+                href={item.path}
+                className={`block px-3 py-2 text-base font-medium ${
+                  isActive(item.path)
+                    ? "text-primary"
+                    : "text-gray-600 hover:text-gray-900"
+                }`}
+                onClick={() => setIsMenuOpen(false)}
+              >
+                {isActive(item.path) ? "• " : ""}
+                {item.name}
+              </Link>
+            ))}
+            <div className="px-3 py-2">
+              <button
+                className="w-full bg-black text-white px-6 py-2 rounded-lg text-sm font-medium hover:bg-gray-800 transition-colors duration-200"
+                onClick={() => {
+                  alert("Redirecting to app store...");
+                  setIsMenuOpen(false);
+                }}
+              >
+                Download our app
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </nav>
+  );
+}

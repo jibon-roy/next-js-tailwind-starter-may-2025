@@ -1,5 +1,5 @@
 {
-  "name": "next-js-april-2025-v-15.3.1",
+  "name": "sean-brickell",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -11,6 +11,7 @@
   "dependencies": {
     "@hookform/resolvers": "^5.0.1",
     "@reduxjs/toolkit": "^2.7.0",
+    "antd": "^5.26.2",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "dotenv": "^16.5.0",
