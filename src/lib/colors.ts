@@ -4,4 +4,4 @@
    accent: "#FF0000",
  };
 
-export default colors
+export default colors 
