@@ -140,9 +140,7 @@ export const Navbar = ({
                   />
                 </Link>
               ) : (
-                <Link href="/" className="flex items-center">
-                  {logo}
-                </Link>
+                logo
               ))}
           </div>
 
