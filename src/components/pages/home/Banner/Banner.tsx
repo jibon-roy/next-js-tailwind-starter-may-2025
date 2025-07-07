@@ -10,8 +10,8 @@ const Banner = () => {
       className="bg-cover bg-center min-h-[652px] pt-10 lg:pb-0 pb-10"
       style={{ backgroundImage: `url(${heroBg.src})` }}
     >
-     <Container>
-         <div className="flex lg:flex-row flex-col items-center gap-[60px]">
+      <Container>
+        <div className="flex lg:flex-row flex-col items-center gap-[60px]">
           <div className="flex-1">
             <h1 className="lg:text-[50px] md:text-[40px] sm:text-[30px] text-[26px] font-bold text-black ">
               Smart Automated{" "}
@@ -28,14 +28,18 @@ const Banner = () => {
                 alert("Redirecting to app store...");
               }}
             >
-               Try 1 Month Free
+              Try 1 Month Free
             </button>
           </div>
           <div className="flex-1">
-              <Image src={heroiamge} alt="Hero Image" className="w-full h-auto shadow-xl" />
+            <Image
+              src={heroiamge}
+              alt="Hero Image"
+              className="w-full h-auto shadow-xl"
+            />
           </div>
         </div>
-     </Container>
+      </Container>
     </div>
   );
 };
