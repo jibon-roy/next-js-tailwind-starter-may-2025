@@ -166,7 +166,6 @@ const NavBarRounded = () => {
                     S’inscrire
                   </Button>
                 </Link>
-
                 <Link href={"/connexion"}>
                   <Button
                     variant="accent"
