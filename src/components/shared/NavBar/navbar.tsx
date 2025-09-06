@@ -6,6 +6,8 @@ import { usePathname } from "next/navigation";
 import type { NavbarProps, NavItem, DropdownItem } from "./types";
 import { Drawer } from "./drawer";
 import Image from "next/image";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
 
 export const Navbar = ({
   logo,
@@ -25,7 +27,7 @@ export const Navbar = ({
   hamburgerColor = "text-gray-800",
   drawerBackgroundColor = "bg-white",
   drawerWidth = "w-64",
-  shadow = "shadow-md",
+  shadow = "",
   padding = "px-4 py-2",
   transition = "transition-all duration-300 ease-in-out",
   zIndex = "z-[999]",
@@ -88,7 +90,7 @@ export const Navbar = ({
     if (!path) return false;
     return pathname === path || pathname.startsWith(`${path}/`);
   };
-
+  const user = useSelector((state: RootState) => state.auth.user);
   // Handle nav item click
   const handleNavItemClick = (item: NavItem) => {
     if (onNavItemClick) {
@@ -160,15 +162,15 @@ export const Navbar = ({
                 : ""
             } items-center justify-center flex-1 mx-4`}
           >
-            <ul className="flex">
+            <ul className="flex bg-white/80 backdrop-blur-md px-4 py-3 rounded-full">
               {navItems
-                .filter(shouldShowRoute)
-                .map((item: NavItem, index: number) => (
+                ?.filter(shouldShowRoute)
+                ?.map((item: NavItem, index: number) => (
                   <li key={index} className={`relative px-4  `}>
                     {navDivider && index < navItems.length - 1 && (
                       <div className="absolute right-0 top-1/2 transform -translate-y-1/2 h-[10px]  border-gray-300" />
                     )}
-                    {item.dropdown ? (
+                    {item?.dropdown ? (
                       <div>
                         <button
                           onClick={() => toggleDropdown(index)}
@@ -298,25 +300,26 @@ export const Navbar = ({
                 : ""
             } flex gap-4`}
           >
-            <div className="hidden md:flex items-center justify-end space-x-4">
-              {buttons.map((button, index) =>
-                button.component ? (
-                  <div key={index} onClick={() => handleButtonClick(index)}>
-                    {button.component}
-                  </div>
-                ) : (
-                  <button
-                    key={index}
-                    onClick={() => handleButtonClick(index)}
-                    className={
-                      button.className ||
-                      "px-4 py-2 rounded-md bg-blue-600 text-white hover:bg-blue-700"
-                    }
-                  >
-                    {button.label}
-                  </button>
-                )
-              )}
+            <div className="flex items-center justify-end space-x-4">
+              {user &&
+                buttons.map((button, index) =>
+                  button.component ? (
+                    <div key={index} onClick={() => handleButtonClick(index)}>
+                      {button.component}
+                    </div>
+                  ) : (
+                    <button
+                      key={index}
+                      onClick={() => handleButtonClick(index)}
+                      className={
+                        button.className ||
+                        "px-4 py-2 rounded-md bg-blue-600 text-white hover:bg-blue-700"
+                      }
+                    >
+                      {button.label}
+                    </button>
+                  )
+                )}
             </div>
             <button
               onClick={() => setIsOpen(true)}

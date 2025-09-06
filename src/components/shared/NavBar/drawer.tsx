@@ -3,6 +3,8 @@
 import { useState } from "react";
 import Link from "next/link";
 import type { NavItem, DrawerProps, DropdownItem } from "./types";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
 
 export const Drawer = ({
   isOpen,
@@ -39,6 +41,8 @@ export const Drawer = ({
       }
     }
   };
+
+  const user = useSelector((state: RootState) => state.auth.user);
 
   const handleButtonClick = (index: number) => {
     onClose();
@@ -176,28 +180,30 @@ export const Drawer = ({
 
           {/* Buttons */}
           <div className="p-4 space-y-2">
-            {buttons.map((button, index) =>
-              button.component ? (
-                <div
-                  key={index}
-                  onClick={() => handleButtonClick(index)}
-                  className="w-full"
-                >
-                  {button.component}
-                </div>
-              ) : (
-                <button
-                  key={index}
-                  onClick={() => handleButtonClick(index)}
-                  className={
-                    button.className ||
-                    "w-full px-4 py-2 rounded-md bg-blue-600 text-white hover:bg-blue-700"
-                  }
-                >
-                  {button.label}
-                </button>
-              )
-            )}
+            {!user
+              ? buttons.map((button, index) =>
+                  button.component ? (
+                    <div
+                      key={index}
+                      onClick={() => handleButtonClick(index)}
+                      className="w-full"
+                    >
+                      {button.component}
+                    </div>
+                  ) : (
+                    <button
+                      key={index}
+                      onClick={() => handleButtonClick(index)}
+                      className={
+                        button.className ||
+                        "w-full px-4 py-2 rounded-md bg-blue-600 text-white hover:bg-blue-700"
+                      }
+                    >
+                      {button.label}
+                    </button>
+                  )
+                )
+              : ""}
           </div>
         </div>
       </div>
